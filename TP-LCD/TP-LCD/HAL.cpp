@@ -21,7 +21,6 @@
 #define LCD_D6 (1<< (PIN_P6))
 #define LCD_D7 (1 << (PIN_P7))
 
-
 //Instrucciones del LCD
 #define LCD_CLEAR 0x01
 #define LCD_RETURN_HOME 0x02
@@ -31,6 +30,24 @@
 #define SET_DR_ON (LCD_RS)
 #define SET_ENABLE_ON (LCD_E)
 #define SET_ENABLE_OFF (~(LCD_E))
+
+#define SET_LCD_D4_ON (LCD_D4)			//Activos altos
+#define SET_LCD_D5_ON (LCD_D5)
+#define SET_LCD_D6_ON (LCD_D6)
+#define SET_LCD_D7_ON (LCD_D7)
+
+#define SET_LCD_D4_OFF (LCD_D4 ^ LCD_D4)	//Activos altos  
+#define SET_LCD_D5_OFF (LCD_D5 ^ LCD_D5)
+#define SET_LCD_D6_OFF (LCD_D6 ^ LCD_D6)
+#define SET_LCD_D7_OFF (LCD_D7 ^ LCD_D7)
+
+#define MASK_LEDS (LCD_D4 | LCD_D5 | LCD_D6 | LCD_D7)
+#define NOT_MASK_LEDS (~(MASK_LEDS))
+
+#define LCD_MASKED_D4 (~(LCD_D4))
+#define LCD_MASKED_D5 (~(LCD_D5))
+#define LCD_MASKED_D6 (~(LCD_D6))
+#define LCD_MASKED_D7 (~(LCD_D7))
 
 //Escribe el Nibble menos significativo del byte que recibe.
 void lcdWriteNibble(FT_HANDLE * deviceHandler, unsigned char byte, unsigned char rs);
