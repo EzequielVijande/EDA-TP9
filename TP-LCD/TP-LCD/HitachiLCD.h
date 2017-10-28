@@ -1,14 +1,18 @@
 #pragma once
 //Modulo que contiene la estructura del  display Hitachi HD44780. 
-#include "BasicLCD.h"
 
+//FALTA LA VALIDACION DE TODAS LAS FUNCIONES!
+
+
+#include "BasicLCD.h"
+#include "HAL.h"
 
 class HitachiLCD : public basicLCD
 {
 public:
-	HitachiLCD();
+	HitachiLCD(int iDevice);
 	virtual ~HitachiLCD();
-	virtual bool lcdInitOk();
+	virtual bool lcdInitOk()const;
 	virtual FT_STATUS lcdGetError();
 	virtual bool lcdClear();
 	virtual bool lcdClearToEOL();
@@ -22,5 +26,6 @@ public:
 	virtual cursorPosition lcdGetCursorPosition();
 
 private:
-
+	bool Init;
+	FT_HANDLE * device_handler;
 };
