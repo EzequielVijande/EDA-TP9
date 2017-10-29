@@ -3,7 +3,9 @@
 
 //FALTA LA VALIDACION DE TODAS LAS FUNCIONES!
 
+#define FTD2XX_EXPORTS
 
+#include "FTD2XX.h"
 #include "BasicLCD.h"
 #include "HAL.h"
 
