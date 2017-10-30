@@ -18,7 +18,11 @@ bool HitachiLCD::lcdInitOk()const
 }
 FT_STATUS HitachiLCD::lcdGetError()
 {
-
+	DWORD * lpdwAmountInRxQueue;
+	DWORD * lpdwAmountInTxQueue;
+	DWORD * lpdwEventStatus;
+	FT_STATUS ret = FT_GetStatus(*device_handler, lpdwAmountInRxQueue, lpdwAmountInTxQueue, lpdwEventStatus);
+	return ret;
 }
 bool HitachiLCD::lcdClear()
 {
