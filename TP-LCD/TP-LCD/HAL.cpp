@@ -10,26 +10,26 @@ void lcdWriteByte(FT_HANDLE * deviceHandler, unsigned char byte, unsigned char r
 
 void lcdWriteNibble(FT_HANDLE * deviceHandler, unsigned char byte, unsigned char rs)
 {
-	unsigned short sent = 0;
+	unsigned long sent = 0;
 	FT_STATUS valid;
 	unsigned char temp;
 	temp = (byte << 4) & (0xF0);
 	if (rs == SET_IR_ON)
 	{
 		temp = (temp | (SET_IR_ON)) & (SET_ENABLE_OFF);
-		FT_write(deviceHandler, &temp, sizeof(temp), &sent);
+		FT_Write(deviceHandler, &temp, sizeof(temp), &sent);
 		sleep_for(1ms); //delay de 1 ms
 		temp = temp | (SET_ENABLE_ON);
-		FT_write(deviceHandler, &temp, sizeof(temp), &sent);
+		FT_Write(deviceHandler, &temp, sizeof(temp), &sent);
 		sleep_for(3ms);//delay de 3ms.
 	}
 	else if (rs == SET_DR_ON)
 	{
 		temp = (temp | (SET_DR_ON)) & (SET_ENABLE_OFF);
-		FT_write(deviceHandler, &temp, sizeof(temp), &sent);
+		FT_Write(deviceHandler, &temp, sizeof(temp), &sent);
 		sleep_for(1ms);//delay de 1 ms
 		temp = temp | (SET_ENABLE_ON);
-		FT_write(deviceHandler, &temp, sizeof(temp), &sent);
+		FT_Write(deviceHandler, &temp, sizeof(temp), &sent);
 		sleep_for(3ms);//delay de 3ms.
 	}
 
@@ -44,8 +44,27 @@ void lcdWriteByte(FT_HANDLE * deviceHandler, unsigned char byte, unsigned char r
 
 FT_HANDLE * lcdInit(int iDevice)
 {
-	//INICIALIZAR EL FT_HANDLE
+	//Basado en el modelo de los ayudantes
+	FT_HANDLE * deviceHandler;
 
+	unsigned char info = 0x00;
+	DWORD sizeSent = 0;
+	bool found = false;
+	FT_STATUS deviceStatus;
+
+	for (int i = 0; (i < 10) && !found; i++)
+	{
+		deviceStatus = FT_Open(i, deviceHandler);			//Habría que guardar este status
+
+		if (deviceStatus == FT_OK)	//Examples in FTDI guid use 0. But practice shows 1 is usually the case.
+		{
+		}
+		else
+			std::cout << "No se puedo abrir el puerto USB " << i << std::endl;
+	}
+	
+
+	//Configuracion inicial
 	lcdWriteNibble(deviceHandler, 0x03, SET_IR_ON);
 	sleep_for(4ms); //delay de 4ms.
 	lcdWriteNibble(deviceHandler, 0x03, SET_IR_ON);

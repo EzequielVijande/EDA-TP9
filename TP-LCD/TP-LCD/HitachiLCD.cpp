@@ -9,6 +9,7 @@ HitachiLCD::HitachiLCD(int iDevice) //falta verificar la inicializacion correcta
 }
 HitachiLCD:: ~HitachiLCD()
 {
+	FT_Close(*device_handler);
 	//Hacer close del handler.
 }
 bool HitachiLCD::lcdInitOk()const

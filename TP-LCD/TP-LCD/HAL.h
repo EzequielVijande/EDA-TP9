@@ -1,6 +1,11 @@
 #pragma once
+#define FTD2XX_EXPORTS
+#include "ftd2xx.h"
+
 #include <chrono>
 #include <thread>
+
+#include <iostream>
 
 //FALTA LA VALIDACION DE TODAS LAS FUNCIONES!
 
