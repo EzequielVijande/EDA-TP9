@@ -58,12 +58,12 @@ FT_HANDLE * lcdInit(int iDevice)
 
 		if (deviceStatus == FT_OK)	//Examples in FTDI guid use 0. But practice shows 1 is usually the case.
 		{
+			found = true;
 		}
 		else
 			std::cout << "No se puedo abrir el puerto USB " << i << std::endl;
 	}
 	
-
 	//Configuracion inicial
 	lcdWriteNibble(deviceHandler, 0x03, SET_IR_ON);
 	sleep_for(4ms); //delay de 4ms.
