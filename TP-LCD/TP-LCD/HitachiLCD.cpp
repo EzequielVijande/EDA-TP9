@@ -2,9 +2,8 @@
 
 HitachiLCD::HitachiLCD(int iDevice) //falta verificar la inicializacion correcta.
 {
-	Init = false;
-	FT_HANDLE * device_handler;
-	lcdInit(iDevice);
+	Init = false;						//No debería ser true?
+	device_handler = lcdInit(iDevice);
 	cadd = 1;
 }
 HitachiLCD:: ~HitachiLCD()

@@ -24,6 +24,9 @@
     <ClInclude Include="HAL.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ftd2xx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HitachiLCD.cpp">

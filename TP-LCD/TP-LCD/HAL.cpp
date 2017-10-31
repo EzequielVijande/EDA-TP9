@@ -44,13 +44,12 @@ void lcdWriteByte(FT_HANDLE * deviceHandler, unsigned char byte, unsigned char r
 
 FT_HANDLE * lcdInit(int iDevice)
 {
-	//Basado en el modelo de los ayudantes
 	FT_HANDLE * deviceHandler;
-
-	unsigned char info = 0x00;
 	DWORD sizeSent = 0;
-	bool found = false;
 	FT_STATUS deviceStatus;
+	
+	unsigned char info = 0x00;
+	bool found = false;
 
 	for (int i = 0; (i < 10) && !found; i++)
 	{
