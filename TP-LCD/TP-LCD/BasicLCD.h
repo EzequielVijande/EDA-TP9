@@ -1,4 +1,22 @@
 #pragma once
+/* manu: 
+	movecursor(right, left, up, down)
+	eze:
+	inserción << (string, char *, char)
+	revisar returns de las funciones de bajo nivel.
+	mati:
+	LcdupdateCursor, 
+	setCursorPosition,
+	getCursorPosition,
+	clearLCDtoEOL
+	tomi:
+	LCDgetError,
+	constructor,
+	destructor,
+	cleaLCD,
+	initLCD.
+	*/
+
 //Modulo que contiene la estructura de una clase abstracta que compone un LCD
 //cualquiera.
 
@@ -27,5 +45,6 @@ public:
 	virtual cursorPosition lcdGetCursorPosition() = 0;
 protected:
 	int cadd;
+	bool error;
 	virtual void lcdUpdateCursor() = 0;
 };

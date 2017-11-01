@@ -15,7 +15,7 @@ public:
 	HitachiLCD(int iDevice);
 	virtual ~HitachiLCD();
 	virtual bool lcdInitOk()const;
-	virtual FT_STATUS lcdGetError();
+	virtual bool lcdGetError();
 	virtual bool lcdClear();
 	virtual bool lcdClearToEOL();
 	virtual basicLCD& operator<<(const unsigned char c);
@@ -30,4 +30,6 @@ public:
 private:
 	bool Init;
 	FT_HANDLE * device_handler;
+	virtual void lcdUpdateCursor();
+	unsigned char Hcadd();
 };

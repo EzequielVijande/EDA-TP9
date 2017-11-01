@@ -15,6 +15,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ftd2xx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="BasicLCD.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -24,18 +27,15 @@
     <ClInclude Include="HAL.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ftd2xx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="HitachiLCD.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="HAL.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="HitachiLCD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
