@@ -1,4 +1,5 @@
 #include<iostream>
+#include 
 using namespace std;
 
 #define FTD2XX_EXPORTS
@@ -7,6 +8,6 @@ using namespace std;
 
 int main(void)
 {
-
+	BasicLCD
 	return 0;
 }

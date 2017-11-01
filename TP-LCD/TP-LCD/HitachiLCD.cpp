@@ -3,10 +3,12 @@
 #define ERROR_HCADD 0xFF
 #define HITACHI_OFFSET_SECOND_LINE 0x40
 
-HitachiLCD::HitachiLCD(int iDevice) //falta verificar la inicializacion correcta.
+HitachiLCD::HitachiLCD(int iDevice) 
 {
 	Init = false;
 	
+	//falta verificar la inicializacion correcta.
+
 	device_handler = lcdInit(iDevice);
 	cadd = 1;
 }
