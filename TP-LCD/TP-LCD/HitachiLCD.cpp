@@ -113,30 +113,138 @@ basicLCD& HitachiLCD::operator<<(const unsigned char * c)
 
 	return *this;
 };
+
 bool HitachiLCD::lcdMoveCursorUp()
 {
-	return true;
+	if ((cadd >= 1) && (cadd <= 8)) //primer línea del hitachiLCD
+	{
+		return false; //no se puede mover hacia arriba
+	}
+	else if ((cadd > 8) && (cadd <= 16))  //segunda línea del hitachiLCD
+	{
+		cursorPosition newPos;
+		newPos.column = 1;
+		newPos.row = cadd - 8;
+		lcdSetCursorPosition(newPos);
+		return true;
+	}
+	else   //el cadd esta fuera del hitachiLCD
+	{
+		return false;
+	}
 }
+
 bool HitachiLCD::lcdMoveCursorDown()
 {
-	return true;
+	if ((cadd >= 1) && (cadd <= 8)) //primer línea del hitachiLCD
+	{
+		cursorPosition newPos;
+		newPos.column = cadd;
+		newPos.row = 2;
+		lcdSetCursorPosition(newPos);
+		return true;
+	}
+	else if ((cadd > 8) && (cadd <= 16))  //segunda línea del hitachiLCD
+	{
+		return false; //no se puede mover hacia abajo
+	}
+	else   //el cadd esta fuera del hitachiLCD
+	{
+		return false;
+	}
 }
+
 bool HitachiLCD::lcdMoveCursorRight()
 {
-	return true;
+	if ((cadd >= 1) && (cadd < 16)) //no llegue al final
+	{
+		cursorPosition newPos;
+		if (cadd > 8)
+		{
+			newPos.row = 2;
+			newPos.column = cadd - 8 + 1;
+		}
+		else if (cadd < 8)
+		{
+			newPos.row = 1;
+			newPos.column = cadd + 1;
+		}
+		else if (cadd == 8)
+		{
+			newPos.row = 2;
+			newPos.column = 1;
+		}
+		lcdSetCursorPosition(newPos);
+		return true;
+	}
+	else //ya no lo puedo mover
+	{
+		return false;
+	}
 }
+
 bool HitachiLCD::lcdMoveCursorLeft()
 {
-	return true;
+	if ((cadd > 1) && (cadd <= 16)) //no llegue al principio
+	{
+		cursorPosition newPos;
+		if (cadd > 9)
+		{
+			newPos.row = 2;
+			newPos.column = cadd - 8 - 1;
+		}
+		else if (cadd <9)
+		{
+			newPos.row = 1;
+			newPos.column = cadd - 1;
+		}
+		else if (cadd == 9)
+		{
+			newPos.row = 1;
+			newPos.column = 8;
+		}
+		lcdSetCursorPosition(newPos);
+		return true;
+	}
+	else //ya no lo puedo mover
+	{
+		return false;
+	}
 }
+
 bool HitachiLCD::lcdSetCursorPosition(const cursorPosition pos)
 {
-	return true;
+	switch (pos.row)
+	{
+	case 1:
+		cadd = pos.column;
+		break;
+	case 2:
+		cadd = pos.column + 8;
+		break;
+	}
+	lcdUpdateCursor();
 }
+
 cursorPosition HitachiLCD::lcdGetCursorPosition()
 {
-	cursorPosition a = {1, 2};
-	return a;
+	cursorPosition currPos;
+	if ((cadd >= 1) && (cadd <= 8))
+	{
+		currPos.row = 1;
+		currPos.column = cadd;
+	}
+	else if ((cadd > 8) && (cadd <= 16))
+	{
+		currPos.column = cadd + 8;
+		currPos.row = 2;
+	}
+	else
+	{
+		currPos.column = -1;
+		currPos.row = -1;
+	}
+	return currPos;
 }
 
 void HitachiLCD::lcdUpdateCursor()
