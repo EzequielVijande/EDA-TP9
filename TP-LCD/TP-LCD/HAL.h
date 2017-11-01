@@ -7,10 +7,11 @@
 #include <thread>
 
 #include <iostream>
+using namespace std;
 
 #define MY_LCD_DESCRIPTION "EDA LCD 2 A" 
 
-#define CONNECTING_TIME 5 //in seconds
+#define CONNECTING_TIME 10 //in seconds
 
 //FALTA LA VALIDACION DE TODAS LAS FUNCIONES!
 

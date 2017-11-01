@@ -8,8 +8,9 @@ int main(void)
 {
 	FT_HANDLE * handle = lcdInit(2);
 
+	lcdWriteIR(handle, (LCD_DISPLAY_CONTROL | (0x04)));
 	lcdWriteDR(handle, 'A');
-
+	cout << "" << endl;
 	getchar();
 
 

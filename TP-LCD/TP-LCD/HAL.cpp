@@ -42,7 +42,7 @@ void lcdWriteByte(FT_HANDLE * deviceHandler, unsigned char byte, unsigned char r
 FT_HANDLE * lcdInit(int iDevice)
 {
 	FT_STATUS status = !FT_OK;
-	FT_HANDLE * deviceHandler = nullptr;
+	FT_HANDLE* deviceHandler = new FT_HANDLE;
 
 	std::chrono::seconds MaxTime(CONNECTING_TIME);/*The display has a settling time after the physical connection so the attempt to connect
 												  will be done for a few seconds*/
@@ -53,24 +53,39 @@ FT_HANDLE * lcdInit(int iDevice)
 	while (status != FT_OK && ((current - start) < MaxTime))//loop till succesful connection o max connecting time is exceeded
 	{
 		//status = FT_OpenEx((void *)MY_LCD_DESCRIPTION, FT_OPEN_BY_DESCRIPTION, deviceHandler);
-		status = FT_OpenEx((void *)MY_LCD_DESCRIPTION, iDevice, deviceHandler);			//No estoy muy seguro
+		status = FT_OpenEx((void *)MY_LCD_DESCRIPTION, FT_OPEN_BY_DESCRIPTION, deviceHandler);			//No estoy muy seguro
 
 		if (status == FT_OK)
 		{
-			//Configuracion inicial
-			lcdWriteNibble(deviceHandler, 0x03, SET_IR_ON);
-			sleep_for(4ms); //delay de 4ms.
-			lcdWriteNibble(deviceHandler, 0x03, SET_IR_ON);
-			sleep_for(100us); //delay de 100 microsegundos.
-			lcdWriteNibble(deviceHandler, 0x03, SET_IR_ON);
-			lcdWriteNibble(deviceHandler, 0x02, SET_IR_ON);
-			//ya esta incializado el modo 4 bits.
+
+			UCHAR Mask = 0xFF;	//Selects all FTDI pins.
+			UCHAR Mode = 1; 	// Set asynchronous bit-bang mode
+			if (FT_SetBitMode(deviceHandler, Mask, Mode) == FT_OK)	// Sets LCD as asynch bit mode. Otherwise it doesn't work.
+			{
+				//Configuracion inicial
+				lcdWriteNibble(deviceHandler, 0x03, SET_IR_ON);
+				sleep_for(4ms); //delay de 4ms.
+				lcdWriteNibble(deviceHandler, 0x03, SET_IR_ON);
+				sleep_for(100us); //delay de 100 microsegundos.
+				lcdWriteNibble(deviceHandler, 0x03, SET_IR_ON);
+				lcdWriteNibble(deviceHandler, 0x02, SET_IR_ON);
+				//ya esta incializado el modo 4 bits.
+
+				lcdWriteNibble(deviceHandler, 0x02, SET_IR_ON);
+				lcdWriteNibble(deviceHandler, 0x08, SET_IR_ON);
+				lcdWriteByte(deviceHandler, LCD_DISPLAY_CONTROL, SET_IR_ON);
+				lcdWriteByte(deviceHandler, LCD_CLEAR, SET_IR_ON);
+				lcdWriteByte(deviceHandler, LCD_ENTRY_MODE_SET, SET_IR_ON);
+
+				cout << "init Ok" << endl;
+			}
+			else
+			{
+				cout<<"Couldn't configure LCD\n"<<endl;
+
+				FT_Close(deviceHandler);
+			}
 			
-			lcdWriteNibble(deviceHandler, 0x02, SET_IR_ON);
-			lcdWriteNibble(deviceHandler, 0x08, SET_IR_ON);
-			lcdWriteByte(deviceHandler, LCD_DISPLAY_CONTROL, SET_IR_ON);
-			lcdWriteByte(deviceHandler, LCD_CLEAR, SET_IR_ON);
-			lcdWriteByte(deviceHandler, LCD_ENTRY_MODE_SET, SET_IR_ON);
 		}
 		current = std::chrono::system_clock::now();
 	}

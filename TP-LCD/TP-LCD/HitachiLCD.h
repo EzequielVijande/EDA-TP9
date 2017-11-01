@@ -1,4 +1,7 @@
 #pragma once
+#define FTD2XX_EXPORTS
+#include "ftd2xx.h"
+
 //Modulo que contiene la estructura del  display Hitachi HD44780. 
 
 //FALTA LA VALIDACION DE TODAS LAS FUNCIONES!
