@@ -2,19 +2,15 @@
 //Modulo que contiene la estructura del  display Hitachi HD44780. 
 
 //FALTA LA VALIDACION DE TODAS LAS FUNCIONES!
-
 #include "BasicLCD.h"
 #include "HAL.h"
-
-#define FTD2XX_EXPORTS
-#include "ftd2xx.h"
 
 class HitachiLCD : public basicLCD
 {
 public:
 	HitachiLCD(int iDevice);
 	virtual ~HitachiLCD();
-	virtual bool lcdInitOk()const;
+	virtual bool lcdInitOk();
 	virtual bool lcdGetError();
 	virtual bool lcdClear();
 	virtual bool lcdClearToEOL();

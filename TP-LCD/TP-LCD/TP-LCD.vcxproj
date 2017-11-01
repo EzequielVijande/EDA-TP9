@@ -70,7 +70,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LibraryPath>C:\Users\Usuario\source\repos\EDA-TP9\TP-LCD\i386;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Users\ellon\source\repos\EDA-TP9\TP-LCD\TP-LCD\i386;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -86,7 +86,7 @@
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>ftd2xx.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ftd2xx.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -122,7 +122,7 @@
     <ClInclude Include="HitachiLCD.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Eze.cpp" />
+    <ClCompile Include="BasicLCD.cpp" />
     <ClCompile Include="HAL.cpp" />
     <ClCompile Include="HitachiLCD.cpp" />
     <ClCompile Include="main.cpp" />

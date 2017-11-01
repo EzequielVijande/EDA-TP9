@@ -1,4 +1,5 @@
 #pragma once
+
 #define FTD2XX_EXPORTS
 #include "ftd2xx.h"
 
@@ -6,6 +7,10 @@
 #include <thread>
 
 #include <iostream>
+
+#define MY_LCD_DESCRIPTION "EDA LCD 2 A" 
+
+#define CONNECTING_TIME 5 //in seconds
 
 //FALTA LA VALIDACION DE TODAS LAS FUNCIONES!
 
