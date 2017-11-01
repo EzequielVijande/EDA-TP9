@@ -122,6 +122,7 @@
     <ClInclude Include="HitachiLCD.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Eze.cpp" />
     <ClCompile Include="HAL.cpp" />
     <ClCompile Include="HitachiLCD.cpp" />
     <ClCompile Include="main.cpp" />
