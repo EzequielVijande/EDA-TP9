@@ -11,7 +11,6 @@ void lcdWriteByte(FT_HANDLE * deviceHandler, unsigned char byte, unsigned char r
 void lcdWriteNibble(FT_HANDLE * deviceHandler, unsigned char byte, unsigned char rs)
 {
 	unsigned long sent = 0;
-	FT_STATUS valid;
 	unsigned char temp;
 	temp = (byte << 4) & (0xF0);
 	if (rs == SET_IR_ON)
@@ -32,8 +31,6 @@ void lcdWriteNibble(FT_HANDLE * deviceHandler, unsigned char byte, unsigned char
 		FT_Write(deviceHandler, &temp, sizeof(temp), &sent);
 		sleep_for(3ms);//delay de 3ms.
 	}
-
-
 }
 
 void lcdWriteByte(FT_HANDLE * deviceHandler, unsigned char byte, unsigned char rs)
@@ -44,40 +41,43 @@ void lcdWriteByte(FT_HANDLE * deviceHandler, unsigned char byte, unsigned char r
 
 FT_HANDLE * lcdInit(int iDevice)
 {
-	//Basado en el modelo de los ayudantes
-	FT_HANDLE * deviceHandler;
+	FT_STATUS status = !FT_OK;
+	FT_HANDLE * deviceHandler = nullptr;
 
-	unsigned char info = 0x00;
-	DWORD sizeSent = 0;
-	bool found = false;
-	FT_STATUS deviceStatus;
+	std::chrono::seconds MaxTime(CONNECTING_TIME);/*The display has a settling time after the physical connection so the attempt to connect
+												  will be done for a few seconds*/
 
-	for (int i = 0; (i < 10) && !found; i++)
+	std::chrono::time_point<std::chrono::system_clock> start = std::chrono::system_clock::now();
+	std::chrono::time_point<std::chrono::system_clock> current = start;
+
+	while (status != FT_OK && ((current - start) < MaxTime))//loop till succesful connection o max connecting time is exceeded
 	{
-		deviceStatus = FT_Open(i, deviceHandler);			//Habría que guardar este status
+		//status = FT_OpenEx((void *)MY_LCD_DESCRIPTION, FT_OPEN_BY_DESCRIPTION, deviceHandler);
+		status = FT_OpenEx((void *)MY_LCD_DESCRIPTION, iDevice, deviceHandler);			//No estoy muy seguro
 
-		if (deviceStatus == FT_OK)	//Examples in FTDI guid use 0. But practice shows 1 is usually the case.
+		if (status == FT_OK)
 		{
-			found = true;
+			//Configuracion inicial
+			lcdWriteNibble(deviceHandler, 0x03, SET_IR_ON);
+			sleep_for(4ms); //delay de 4ms.
+			lcdWriteNibble(deviceHandler, 0x03, SET_IR_ON);
+			sleep_for(100us); //delay de 100 microsegundos.
+			lcdWriteNibble(deviceHandler, 0x03, SET_IR_ON);
+			lcdWriteNibble(deviceHandler, 0x02, SET_IR_ON);
+			//ya esta incializado el modo 4 bits.
+			
+			lcdWriteNibble(deviceHandler, 0x02, SET_IR_ON);
+			lcdWriteNibble(deviceHandler, 0x08, SET_IR_ON);
+			lcdWriteByte(deviceHandler, LCD_DISPLAY_CONTROL, SET_IR_ON);
+			lcdWriteByte(deviceHandler, LCD_CLEAR, SET_IR_ON);
+			lcdWriteByte(deviceHandler, LCD_ENTRY_MODE_SET, SET_IR_ON);
 		}
-		else
-			std::cout << "No se puedo abrir el puerto USB " << i << std::endl;
+		current = std::chrono::system_clock::now();
 	}
-	
-	//Configuracion inicial
-	lcdWriteNibble(deviceHandler, 0x03, SET_IR_ON);
-	sleep_for(4ms); //delay de 4ms.
-	lcdWriteNibble(deviceHandler, 0x03, SET_IR_ON);
-	sleep_for(100us); //delay de 100 microsegundos.
-	lcdWriteNibble(deviceHandler, 0x03, SET_IR_ON);
-	lcdWriteNibble(deviceHandler, 0x02, SET_IR_ON);
-	//ya esta incializado el modo 4 bits.
 
-	lcdWriteNibble(deviceHandler, 0x02, SET_IR_ON);
-	lcdWriteNibble(deviceHandler, 0x08, SET_IR_ON);
-	lcdWriteByte(deviceHandler, LCD_DISPLAY_CONTROL, SET_IR_ON);
-	lcdWriteByte(deviceHandler, LCD_CLEAR, SET_IR_ON);
-	lcdWriteByte(deviceHandler, LCD_ENTRY_MODE_SET, SET_IR_ON);
+	if (status != FT_OK)
+		std::cout << "Error: No se pudo abrir el LCD" << std::endl;
+
 	return deviceHandler;
 }
 

@@ -1,13 +1,21 @@
 #include<iostream>
 using namespace std;
 
-#define FTD2XX_EXPORTS
-#include "ftd2xx.h"
-
+#include "HAL.h"
+#include "HitachiLCD.h"
 
 int main(void)
 {
-	HitachiLCD lcd;
+	FT_HANDLE * handle = lcdInit(2);
+
+	lcdWriteDR(handle, 'A');
+
+	getchar();
+
+
+
+	/*
+	HitachiLCD lcd(2);
 	char c = 0;
 	do
 	{
@@ -43,6 +51,6 @@ int main(void)
 	sleep(3);
 	string str = "demo de str_c++";
 	lcd << str;
-
+	*/
 	return 0;
 }

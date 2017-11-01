@@ -38,7 +38,7 @@
     <ClCompile Include="HitachiLCD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Eze.cpp">
+    <ClCompile Include="BasicLCD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

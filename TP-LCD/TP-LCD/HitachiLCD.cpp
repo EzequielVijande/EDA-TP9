@@ -29,16 +29,16 @@ HitachiLCD:: ~HitachiLCD()
 	FT_Close(*device_handler);
 	//Hacer close del handler.
 }
-bool HitachiLCD::lcdInitOk()const
+bool HitachiLCD::lcdInitOk()
 {
 	return Init;
 }
 bool HitachiLCD::lcdGetError()
 {
 	bool ret = false;
-	DWORD * lpdwAmountInRxQueue;
-	DWORD * lpdwAmountInTxQueue;
-	DWORD * lpdwEventStatus;
+	DWORD * lpdwAmountInRxQueue = nullptr;
+	DWORD * lpdwAmountInTxQueue = nullptr;
+	DWORD * lpdwEventStatus = nullptr;
 	FT_STATUS state = FT_GetStatus(*device_handler, lpdwAmountInRxQueue, lpdwAmountInTxQueue, lpdwEventStatus);
 	if (state == FT_OK)
 	{
@@ -53,7 +53,7 @@ bool HitachiLCD::lcdGetError()
 bool HitachiLCD::lcdClear()
 {
 	bool ret = false;
-	FT_STATUS state; //esto hay que igualarlo a la funcion de lcdwrite, pero para eso la funcion debe devolver algun status.
+	FT_STATUS state = FT_OK; //esto hay que igualarlo a la funcion de lcdwrite, pero para eso la funcion debe devolver algun status.
 	lcdWriteIR(device_handler, LCD_CLEAR);
 	if (state == FT_OK)
 	{
@@ -98,35 +98,45 @@ bool HitachiLCD::lcdClearToEOL()
 }
 basicLCD& HitachiLCD::operator<<(const unsigned char c)
 {
+	lcdWriteDR((this->device_handler), c);
+	return *this;
+};
 
-}
 basicLCD& HitachiLCD::operator<<(const unsigned char * c)
 {
+	unsigned int i = 0;
+	while (c[i] != '\0')
+	{
+		lcdWriteDR((this->device_handler), c[i]);
+		i++;
+	}
 
-}
+	return *this;
+};
 bool HitachiLCD::lcdMoveCursorUp()
 {
-
+	return true;
 }
 bool HitachiLCD::lcdMoveCursorDown()
 {
-
+	return true;
 }
 bool HitachiLCD::lcdMoveCursorRight()
 {
-
+	return true;
 }
 bool HitachiLCD::lcdMoveCursorLeft()
 {
-
+	return true;
 }
 bool HitachiLCD::lcdSetCursorPosition(const cursorPosition pos)
 {
-
+	return true;
 }
 cursorPosition HitachiLCD::lcdGetCursorPosition()
 {
-
+	cursorPosition a = {1, 2};
+	return a;
 }
 
 void HitachiLCD::lcdUpdateCursor()
