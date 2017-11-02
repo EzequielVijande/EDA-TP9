@@ -224,6 +224,7 @@ bool HitachiLCD::lcdSetCursorPosition(const cursorPosition pos)
 		break;
 	}
 	lcdUpdateCursor();
+	return true;
 }
 
 cursorPosition HitachiLCD::lcdGetCursorPosition()

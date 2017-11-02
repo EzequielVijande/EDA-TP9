@@ -6,10 +6,8 @@ using namespace std;
 
 int main(void)
 {
-	FT_HANDLE * handle = lcdInit(2);
-
-	lcdWriteIR(handle, (LCD_DISPLAY_CONTROL | (0x04)));
-	lcdWriteDR(handle, 'A');
+	FT_HANDLE* handle = lcdInit(2);
+	lcdWriteDR(handle, 'D');
 	cout << "" << endl;
 	getchar();
 
@@ -53,5 +51,8 @@ int main(void)
 	string str = "demo de str_c++";
 	lcd << str;
 	*/
+
+	//FT_Close(handle);
+	delete handle;
 	return 0;
 }
