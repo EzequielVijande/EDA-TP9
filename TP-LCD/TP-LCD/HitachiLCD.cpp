@@ -22,17 +22,27 @@
 #define IS_VALID_COL(x) (((x >= MIN_COL) && (x <= MAX_COL)))
 #define IS_VALID_POS(pos) ((IS_VALID_ROW(pos.row) && IS_VALID_COL(pos.column)))
 
-HitachiLCD::HitachiLCD(int iDevice) //falta verificar la inicializacion correcta.
+HitachiLCD::HitachiLCD(int iDevice) 
 {
 	Init = false;
-
+	error = true;
 	device_handler = lcdInit(iDevice);
+	if (device_handler != nullptr)
+	{
+		Init = true; //Se inicializo y configuro exitosamente la inicializacion.
+		error = false;
+	}
 	cadd = 1;
 }
 
 HitachiLCD:: ~HitachiLCD()
 {
-	FT_Close(*device_handler);
+	if (Init)
+	{
+		FT_Close(*device_handler);
+		delete device_handler;
+	}
+	
 }
 
 bool HitachiLCD::lcdInitOk()
@@ -61,7 +71,7 @@ bool HitachiLCD::lcdGetError()
 bool HitachiLCD::lcdClear()
 {
 	bool ret = false;
-	FT_STATUS state = FT_OK; //esto hay que igualarlo a la funcion de lcdwrite, pero para eso la funcion debe devolver algun status.
+	FT_STATUS state = FT_OK; 
 	lcdWriteIR(device_handler, LCD_CLEAR);
 	if (state == FT_OK)
 	{

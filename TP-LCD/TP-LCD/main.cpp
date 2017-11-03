@@ -7,6 +7,11 @@
 int main(void)
 {
 	HitachiLCD lcd(2);
+	if (lcd.lcdInitOk() == false)
+	{
+		cout << "Error en la incializacion." << endl;
+		return -1;
+	}
 	char c = 0;
 	cursorPosition pos;
 	std::cout << "Press W to Move Cursor Up" << std::endl;
@@ -21,7 +26,7 @@ int main(void)
 
 	do
 	{
-		std::cin >> c;
+		c=getchar();
 		switch (c)
 		{
 		case 'd':

@@ -21,7 +21,7 @@ void lcdWriteNibble(FT_HANDLE * deviceHandler, unsigned char byte, unsigned char
 		temp = (temp | (SET_ENABLE_ON));
 		FT_Write(*deviceHandler, (LPVOID)&temp, sizeof(temp), &sent);
 		sleep_for(3ms);//delay de 3ms.
-		temp = temp & (SET_ENABLE_OFF); //Verificar lo que sigue
+		temp = temp & (SET_ENABLE_OFF); 
 		FT_Write(*deviceHandler, (LPVOID)&temp, sizeof(temp), &sent);
 
 	}
@@ -36,7 +36,7 @@ void lcdWriteNibble(FT_HANDLE * deviceHandler, unsigned char byte, unsigned char
 		FT_Write(*deviceHandler, (LPVOID)&temp, sizeof(temp), &sent);
 		sleep_for(3ms);//delay de 3ms.
 		sent = 0;
-		temp = temp & (SET_ENABLE_OFF); //Verificar lo que sigue
+		temp = temp & (SET_ENABLE_OFF); 
 		FT_Write(*deviceHandler, (LPVOID)&temp, sizeof(temp), &sent);
 		sleep_for(1ms);
 	}
@@ -53,22 +53,21 @@ FT_HANDLE * lcdInit(int iDevice)
 	FT_STATUS status = !FT_OK;
 	FT_HANDLE* deviceHandler = (FT_HANDLE*) new (FT_HANDLE);
 
-	std::chrono::seconds MaxTime(CONNECTING_TIME);/*The display has a settling time after the physical connection so the attempt to connect
-												  will be done for a few seconds*/
+	std::chrono::seconds MaxTime(CONNECTING_TIME);
 
 	std::chrono::time_point<std::chrono::system_clock> start = std::chrono::system_clock::now();
 	std::chrono::time_point<std::chrono::system_clock> current = start;
 
-	while ( (status != FT_OK) && ((current - start) < MaxTime))//loop till succesful connection o max connecting time is exceeded
+	while ( (status != FT_OK) && ((current - start) < MaxTime))
 	{
-		status = FT_OpenEx((void *)MY_LCD_DESCRIPTION, FT_OPEN_BY_DESCRIPTION, deviceHandler);
+		status = FT_OpenEx((void *)MY_LCD_DESCRIPTION, iDevice, deviceHandler);
 
 		if (status == FT_OK)
 		{
 
 			UCHAR Mask = 0xFF;	//Selects all FTDI pins.
 			UCHAR Mode = 1; 	// Set asynchronous bit-bang mode
-			if (FT_SetBitMode(*deviceHandler, Mask, Mode) == FT_OK)	// Sets LCD as asynch bit mode. Otherwise it doesn't work.
+			if (FT_SetBitMode(*deviceHandler, Mask, Mode) == FT_OK)	
 			{
 
 				//Configuracion inicial a modo 4bit
@@ -93,6 +92,8 @@ FT_HANDLE * lcdInit(int iDevice)
 				cout<<"Couldn't configure LCD"<<endl;
 
 				FT_Close(deviceHandler);
+				delete deviceHandler;
+				return nullptr;
 			}
 			
 		}
@@ -102,6 +103,8 @@ FT_HANDLE * lcdInit(int iDevice)
 	if (status != FT_OK)
 	{
 		std::cout << "Error: No se pudo abrir el LCD" << std::endl;
+		delete deviceHandler;
+		return nullptr;
 	}
 
 	return deviceHandler;
