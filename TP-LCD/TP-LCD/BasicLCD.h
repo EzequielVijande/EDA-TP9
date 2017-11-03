@@ -1,21 +1,7 @@
 #pragma once
-/* manu: 
-	movecursor(right, left, up, down)
-	eze:
-	inserción << (string, char *, char)
-	revisar returns de las funciones de bajo nivel.
-	mati:
-	LcdupdateCursor, 
-	setCursorPosition,
-	getCursorPosition,
-	clearLCDtoEOL
-	tomi:
-	LCDgetError,
-	constructor,
-	destructor,
-	cleaLCD,
-	initLCD.
-	*/
+
+#include <iostream>
+#include <string>
 
 //Modulo que contiene la estructura de una clase abstracta que compone un LCD
 //cualquiera.
@@ -35,8 +21,9 @@ public:
 	virtual bool lcdGetError() = 0;
 	virtual bool lcdClear() = 0;
 	virtual bool lcdClearToEOL() = 0;
-	virtual basicLCD& operator<<(const unsigned char c) = 0;
-	virtual basicLCD& operator<<(const unsigned char * c) = 0;
+	virtual basicLCD& operator<<(const char c) = 0;
+	virtual basicLCD& operator<<(const char * c) = 0;
+	virtual basicLCD& operator<<(std::string str) = 0;
 	virtual bool lcdMoveCursorUp() = 0;
 	virtual bool lcdMoveCursorDown() = 0;
 	virtual bool lcdMoveCursorRight() = 0;

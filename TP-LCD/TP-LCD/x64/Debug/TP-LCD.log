@@ -1,6 +1,8 @@
 ﻿HAL.obj : error LNK2019: unresolved external symbol FT_OpenEx referenced in function "void * * __cdecl lcdInit(int)" (?lcdInit@@YAPEAPEAXH@Z)
+HAL.obj : error LNK2019: unresolved external symbol FT_Close referenced in function "void * * __cdecl lcdInit(int)" (?lcdInit@@YAPEAPEAXH@Z)
+HitachiLCD.obj : error LNK2001: unresolved external symbol FT_Close
 HAL.obj : error LNK2019: unresolved external symbol FT_Write referenced in function "void __cdecl lcdWriteNibble(void * *,unsigned char,unsigned char)" (?lcdWriteNibble@@YAXPEAPEAXEE@Z)
-HitachiLCD.obj : error LNK2019: unresolved external symbol FT_Close referenced in function "public: virtual __cdecl HitachiLCD::~HitachiLCD(void)" (??1HitachiLCD@@UEAA@XZ)
+HAL.obj : error LNK2019: unresolved external symbol FT_SetBitMode referenced in function "void * * __cdecl lcdInit(int)" (?lcdInit@@YAPEAPEAXH@Z)
 HitachiLCD.obj : error LNK2019: unresolved external symbol FT_GetStatus referenced in function "public: virtual bool __cdecl HitachiLCD::lcdGetError(void)" (?lcdGetError@HitachiLCD@@UEAA_NXZ)
-C:\Users\ellon\source\repos\EDA-TP9\TP-LCD\TP-LCD\i386\ftd2xx.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
-C:\Users\ellon\source\repos\EDA-TP9\TP-LCD\x64\Debug\TP-LCD.exe : fatal error LNK1120: 4 unresolved externals
+C:\Users\Manuel Mollon\source\repos\EDA-TP9\TP-LCD\TP-LCD\i386\ftd2xx.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
+C:\Users\Manuel Mollon\source\repos\EDA-TP9\TP-LCD\x64\Debug\TP-LCD.exe : fatal error LNK1120: 5 unresolved externals

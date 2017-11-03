@@ -1,10 +1,11 @@
 #pragma once
+
 #define FTD2XX_EXPORTS
 #include "ftd2xx.h"
-
+#include <iostream>
+#include <string>
 //Modulo que contiene la estructura del  display Hitachi HD44780. 
 
-//FALTA LA VALIDACION DE TODAS LAS FUNCIONES!
 #include "BasicLCD.h"
 #include "HAL.h"
 
@@ -17,8 +18,9 @@ public:
 	virtual bool lcdGetError();
 	virtual bool lcdClear();
 	virtual bool lcdClearToEOL();
-	virtual basicLCD& operator<<(const unsigned char c);
-	virtual basicLCD& operator<<(const unsigned char * c);
+	virtual basicLCD& operator<<(const char c);
+	virtual basicLCD& operator<<(const char * c);
+	virtual basicLCD& operator<<(std::string str);
 	virtual bool lcdMoveCursorUp();
 	virtual bool lcdMoveCursorDown();
 	virtual bool lcdMoveCursorRight();

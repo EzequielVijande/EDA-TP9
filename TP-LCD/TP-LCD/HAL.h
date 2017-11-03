@@ -10,7 +10,8 @@
 #include <iostream>
 using namespace std;
 
-#define MY_LCD_DESCRIPTION "EDA LCD 2 A" 
+#define MY_LCD_DESCRIPTION "EDA LCD 2 B"
+//#define MY_LCD_DESCRIPTION "EDA LCD 2 A"
 
 #define CONNECTING_TIME 5 //in seconds
 
@@ -49,8 +50,8 @@ using namespace std;
 #define LCD_DISPLAY_CONTROL ((UCHAR)0x08)
 
 //Mascaras.
-#define SET_IR_ON (UCHAR)(~(LCD_RS))
-#define SET_DR_ON (UCHAR)(LCD_RS)
+#define SET_IR_ON 0x00
+#define SET_DR_ON 0x02
 #define SET_ENABLE_ON (UCHAR)(LCD_E)
 #define SET_ENABLE_OFF (UCHAR)(~(LCD_E))
 

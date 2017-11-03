@@ -1,58 +1,72 @@
-#include<iostream>
-using namespace std;
-
+#include <iostream>
+#include <string>
+#include <chrono>
 #include "HAL.h"
 #include "HitachiLCD.h"
 
 int main(void)
 {
-	FT_HANDLE* handle = lcdInit(2);
-	lcdWriteDR(handle, 'D');
-	cout << "" << endl;
-	getchar();
-
-
-
-	/*
 	HitachiLCD lcd(2);
 	char c = 0;
+	cursorPosition pos;
+	std::cout << "Press W to Move Cursor Up" << std::endl;
+	std::cout << "Press A to Move Cursor Left" << std::endl;
+	std::cout << "Press S to Move Cursor Down" << std::endl;
+	std::cout << "Press D to Move Cursor Right" << std::endl;
+	std::cout << "Press C to Clear" << std::endl;
+	std::cout << "Press X to Clear to End of Line" << std::endl;
+	std::cout << "Press G  to print Cursor Position in cmd" << std::endl;
+	std::cout << "Press Q to exit" << std::endl;
+	std::cout << "Press any other letter to print to LCD" << std::endl;
+
 	do
 	{
-		scanf(&c);
+		std::cin >> c;
 		switch (c)
 		{
 		case 'd':
-			lcdMoveCursorRight();
+			lcd.lcdMoveCursorRight();
 			break;
 		case 'w':
-			lcdMoveCursorUp();
+			lcd.lcdMoveCursorUp();
 			break;
 		case 'a':
-			lcdMoveCursorLeft();
+			lcd.lcdMoveCursorLeft();
 			break;
-		case 'b':
-			lcdMoveCursorRight();
+		case 's':
+			lcd.lcdMoveCursorDown();
 			break;
 		case 'c':
-			lcdClear();
+			lcd.lcdClear();
 			break;
 		case 'x':
-			lcdClearToEOL();
+			lcd.lcdClearToEOL();
 			break;
 		case 'g':
-			lcdGetCursorPosition();
+			pos = lcd.lcdGetCursorPosition();
+			std::cout << "Column: " << pos.column <<std::endl;
+			std::cout << "Row: " << pos.row << endl;
+			break;
+		case 'q':
 			break;
 		default:
 			lcd << c;
+			break;
 		}
 	} while (c != 'q');
-	lcd << "demo de c_string";
-	sleep(3);
+	std::cout << "Comienza test de strings en LCD..." << std::endl;
+	sleep_for(10ms);
+	const char h[] = "demo de const char * ";
+	lcd << h;
+	lcd.lcdClear();
+	lcd << "demo de cstring.......";
+	sleep_for(10ms);
 	string str = "demo de str_c++";
+	lcd.lcdClear();
 	lcd << str;
-	*/
-
-	//FT_Close(handle);
-	delete handle;
+	sleep_for(10ms);
+	lcd.lcdClear();
+	std::cout << "Press enter to Quit..." <<std::endl;
+	getchar();
 	return 0;
 }

@@ -70,10 +70,10 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LibraryPath>C:\Users\Ezequiel PC\Source\Repos\EDA-TP9\TP-LCD\TP-LCD\i386;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Users\Manuel Mollon\source\repos\EDA-TP9\TP-LCD\TP-LCD\i386;C:\Users\Manuel Mollon\source\repos\EDA-TP9\TP-LCD\TP-LCD\Static\i386;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LibraryPath>C:\Users\Ezequiel PC\Source\Repos\EDA-TP9\TP-LCD\TP-LCD\i386;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Users\Manuel Mollon\source\repos\EDA-TP9\TP-LCD\TP-LCD\i386;C:\Users\Manuel Mollon\source\repos\EDA-TP9\TP-LCD\TP-LCD\Static\i386;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
