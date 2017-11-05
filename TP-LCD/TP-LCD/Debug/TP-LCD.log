@@ -1,5 +1,7 @@
-﻿  HitachiLCD.cpp
-c:\users\manuel mollon\source\repos\eda-tp9\tp-lcd\tp-lcd\hitachilcd.cpp(142): warning C4018: '<': signed/unsigned mismatch
-c:\users\manuel mollon\source\repos\eda-tp9\tp-lcd\tp-lcd\hitachilcd.cpp(309): warning C4309: '=': truncation of constant value
+﻿  main.cpp
+  HitachiLCD.cpp
+c:\users\manuel mollon\source\repos\eda-tp9\tp-lcd\tp-lcd\hitachilcd.cpp(152): warning C4018: '<': signed/unsigned mismatch
+c:\users\manuel mollon\source\repos\eda-tp9\tp-lcd\tp-lcd\hitachilcd.cpp(319): warning C4309: '=': truncation of constant value
+  Generating Code...
   TP-LCD.vcxproj -> C:\Users\Manuel Mollon\source\repos\EDA-TP9\TP-LCD\Debug\TP-LCD.exe
   TP-LCD.vcxproj -> C:\Users\Manuel Mollon\source\repos\EDA-TP9\TP-LCD\Debug\TP-LCD.pdb (Partial PDB)

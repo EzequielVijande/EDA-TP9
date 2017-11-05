@@ -15,8 +15,6 @@ using namespace std;
 
 #define CONNECTING_TIME 5 //in seconds
 
-//FALTA LA VALIDACION DE TODAS LAS FUNCIONES!
-
 
 //Defincion de los pins del display.
 

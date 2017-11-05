@@ -27,39 +27,42 @@ int main(void)
 	do
 	{
 		c=getchar();
-		switch (c)
+		if (c != '\n')
 		{
-		case 'd':
-			lcd.lcdMoveCursorRight();
-			break;
-		case 'w':
-			lcd.lcdMoveCursorUp();
-			break;
-		case 'a':
-			lcd.lcdMoveCursorLeft();
-			break;
-		case 's':
-			lcd.lcdMoveCursorDown();
-			break;
-		case 'c':
-			lcd.lcdClear();
-			break;
-		case 'x':
-			lcd.lcdClearToEOL();
-			break;
-		case 'g':
-			pos = lcd.lcdGetCursorPosition();
-			std::cout << "Column: " << pos.column <<std::endl;
-			std::cout << "Row: " << pos.row << endl;
-			break;
-		case 'q':
-			break;
-		default:
-			lcd << c;
-			break;
+			switch (c)
+			{
+			case 'd':
+				lcd.lcdMoveCursorRight();
+				break;
+			case 'w':
+				lcd.lcdMoveCursorUp();
+				break;
+			case 'a':
+				lcd.lcdMoveCursorLeft();
+				break;
+			case 's':
+				lcd.lcdMoveCursorDown();
+				break;
+			case 'c':
+				lcd.lcdClear();
+				break;
+			case 'x':
+				lcd.lcdClearToEOL();
+				break;
+			case 'g':
+				pos = lcd.lcdGetCursorPosition();
+				std::cout << "Column: " << pos.column << std::endl;
+				std::cout << "Row: " << pos.row << endl;
+				break;
+			case 'q':
+				break;
+			default:
+				lcd << c;
+				break;
+			}
 		}
 	} while (c != 'q');
-	std::cout << "Comienza test de strings en LCD..." << std::endl;
+	std::cout << "Begining of strings test in LCD..." << std::endl;
 	sleep_for(10ms);
 	const char h[] = "demo de const char * ";
 	lcd << h;
@@ -71,7 +74,7 @@ int main(void)
 	lcd << str;
 	sleep_for(10ms);
 	lcd.lcdClear();
-	std::cout << "Press enter to Quit..." <<std::endl;
-	getchar();
+	sleep_for(50ms);
+	std::cout << "Press enter to Quit..." << std::endl;
 	return 0;
 }
